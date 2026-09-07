@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v5
       # Node 24. The package's own floor is `astro@7`'s — 22.12 — and CI runs
       # above it on the maintainer's toolchain rather than on the floor itself.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
       # `npm ci` has nothing to read: `package-lock.json` is gitignored on
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
       - run: npm install
