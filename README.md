@@ -229,6 +229,21 @@ path and the real line number in the Markdown, not the line within the fence:
 astro-lini: src/pages/guide.md:41:1: warning: impossible (a -> b): no legal route
 ```
 
+## A Markdown page at the site root
+
+Astro's `minimal` template ships `src/pages/index.astro`. Adding
+`src/pages/index.md` beside it gives you two routes for `/`, and Astro keeps the
+`.astro` one:
+
+```
+[WARN] [build] Could not render `` from route `/` as it conflicts with higher
+priority route `/`.
+```
+
+Delete the `.astro` file if the Markdown page is the one you want. Nothing to do
+with this integration — it catches everyone whose first Lini page is the home
+page.
+
 ## Beyond Astro
 
 The integration is a thin wrapper. The work is a remark plugin, and it composes into any
