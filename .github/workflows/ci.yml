@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       # Node 24. The package's own floor is `astro@7`'s — 22.12 — and CI runs
       # above it on the maintainer's toolchain rather than on the floor itself.
       - uses: actions/setup-node@v7
@@ -39,7 +39,7 @@ jobs:
   site:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
