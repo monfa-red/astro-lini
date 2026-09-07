@@ -1,0 +1,102 @@
+# Figures
+
+MDX on purpose. Sätteri's raw escape hatch re-parses the string it is handed as
+whatever the page is, and under MDX that is MDX — whose smart punctuation turns
+the `--lini-*` custom properties inside each SVG's own stylesheet into en dashes
+and its font names into curly quotes, landing the figure on the page as unstyled
+text. Nothing about that is visible to `tsc`, or to a build that finishes.
+
+A chart, whose source is one click away.
+
+```lini
+|chart| "Builds this week" { categories: "Mon", "Tue", "Wed", "Thu", "Fri" } [
+  |line| "passed" { data: 12, 18, 15, 24, 30; curve: smooth; marker: dot; stroke: --teal }
+  |line| "failed" { data: 3, 5, 2, 6, 1; curve: smooth; marker: dot; stroke: --rose }
+]
+```
+
+Prose after the chart, which must not be swallowed.
+
+The same arrangement, said out loud.
+
+```lini figure
+{ gap: 100 }
+
+|box#page| "page.md"
+|box#lini| "astro-lini" { fill: --sky-wash; stroke: --sky-deep }
+|box#svg| "inline SVG" { fill: --teal-wash; stroke: --teal-deep }
+
+page -> lini "a lini fence"
+lini -> svg "compile"
+```
+
+Source first, with the figure behind the toggle. Its source is laid out the
+idiomatic way — a stylesheet, a blank line, then the drawn statements. Those
+blank lines are the hazard: a blank line ends an HTML block in CommonMark, so
+the listing travels as `&#10;` and has to come back out of the built page as
+real line breaks.
+
+```lini code
+{ layout: sequence; font-size: 13; }
+
+|icon#reader| "user" { width: 60; stroke: --rose-deep; fill: --rose-wash }
+|box#astro| "Astro"
+
+reader -> astro "GET /figures"
+astro --> reader "HTML, SVG included"
+```
+
+Both views on the page, the figure leading.
+
+```lini figure-code
+|mindmap#block| "A block" [
+  |topic#figure| "figure"
+  |topic#source| "source"
+]
+```
+
+Both views again, the source leading — what a tutorial wants.
+
+```lini code-figure
+|pie| "Fence words" { hole: 0.45 } [
+  |slice| "figure" { value: 4 }
+  |slice| "code" { value: 3 }
+]
+```
+
+The figure and nothing else, with a comma for a separator and a word nobody
+recognises in front of it — reported on stderr, never fatal, and the last word
+still wins.
+
+```lini,elephant,figure-only
+{ gap: 110 }
+
+|box#in| "in"
+|box#out| "out"
+in -> out "figure-only"
+```
+
+A fragment that never reaches the compiler. It does not compile on its own, and
+`code-only` means it does not have to.
+
+```lini code-only
+|box#hero| "…"   // a fragment, not a whole file
+{ fill: --purple-wash; }
+```
+
+A fence in another language passes through untouched.
+
+```js
+export const untouched = 'a plain javascript fence';
+```
+
+And a lini fence quoted inside a wider one stays quoted, so this package can
+document itself.
+
+````markdown
+```lini
+|box#quoted| "never compiled"
+```
+````
+
+The end.

@@ -39,7 +39,8 @@
 	],
 	"scripts": {
 		"build": "tsc",
-		"prepack": "npm run build"
+		"prepack": "npm run build",
+		"test": "npm pack && cd tests/site && npm install && npm install --no-save --strict-peer-deps ../../astro-lini-*.tgz && npm run build && node verify.mjs dist"
 	},
 	"dependencies": {
 		"lini-wasm": "^1.0.2"
@@ -62,6 +63,6 @@
 		"typescript": "^5.9.3"
 	},
 	"engines": {
-		"node": ">=18"
+		"node": ">=22.12.0"
 	}
 }

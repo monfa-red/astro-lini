@@ -3,6 +3,12 @@ dist
 *.tgz
 .DS_Store
 
+# The fixture site's generated route and content types.
+.astro
+
 # Regenerated on install. Nothing here pins a version the registry does not
 # already resolve, and a library is better tested against the newest of them.
+# The fixture site floats for the same reason: an Astro or MDX release that
+# breaks a figure should turn CI red the week it lands, not the day someone
+# gets around to bumping a pin.
 package-lock.json

@@ -1,0 +1,59 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      # Node 24. The package's own floor is `astro@7`'s — 22.12 — and CI runs
+      # above it on the maintainer's toolchain rather than on the floor itself.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      # `npm ci` has nothing to read: `package-lock.json` is gitignored on
+      # purpose, so a library is tested against whatever the registry resolves
+      # today. That also rules out setup-node's lockfile-keyed cache.
+      - run: npm install
+      # `npm run build` is `tsc` and nothing else, and `tsc` is the whole type
+      # check: the package ships its own `.d.ts`, so a build that passes is what
+      # says the declarations a consumer imports match the source they describe.
+      - run: npm run build
+
+  # None of what this package is *for* is visible to `tsc`. Whether the SVG
+  # reached the page, whether each fence word arranged the block the way it
+  # says, whether Astro's own pipeline kept the markup in one piece — all of it
+  # passes a green type check untouched. So this builds a real Astro site and
+  # reads the HTML that came out; `tests/site/verify.mjs` says what it looks for
+  # and why.
+  #
+  # It installs the tarball `npm pack` writes, never a path into the repo. What
+  # ships is not what the working tree holds: the `files` list decides whether
+  # `astro-lini.css` is even there to read at import time, and the `exports` map
+  # decides whether `import lini from 'astro-lini'` resolves at all. Only a real
+  # install of the real artifact puts either of those on the line.
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install
+      # `npm test` is the same chain a maintainer runs locally — pack, install
+      # the tarball into the fixture, build, verify — kept in one place so the
+      # two cannot drift.
+      - run: npm test
+      # npm resolves a peer marked optional and one merely claiming to be —
+      # `"optional": "true"`, the string — identically, so no install can tell
+      # them apart. It shipped that way once (5d25f2b), making Sätteri a
+      # required peer of every site. Read the field off the installed manifest
+      # instead, where the difference is plain.
+      - run: >
+          node --eval "const m = require('./tests/site/node_modules/astro-lini/package.json');
+          for (const [name, meta] of Object.entries(m.peerDependenciesMeta))
+          if (meta.optional !== true) throw new Error(name + ' is not optional: ' + JSON.stringify(meta))"
