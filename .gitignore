@@ -1,0 +1,8 @@
+node_modules
+dist
+*.tgz
+.DS_Store
+
+# Regenerated on install. Nothing here pins a version the registry does not
+# already resolve, and a library is better tested against the newest of them.
+package-lock.json

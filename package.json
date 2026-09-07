@@ -1,0 +1,67 @@
+{
+	"name": "astro-lini",
+	"version": "0.1.0",
+	"description": "Astro integration that compiles ```lini fences in Markdown and MDX to inline SVG at build time.",
+	"license": "MIT",
+	"homepage": "https://lini.rs",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/monfa-red/astro-lini.git"
+	},
+	"bugs": "https://github.com/monfa-red/astro-lini/issues",
+	"keywords": [
+		"astro-integration",
+		"astro-component",
+		"withastro",
+		"diagram",
+		"diagrams-as-code",
+		"svg",
+		"remark-plugin",
+		"markdown",
+		"mdx",
+		"lini"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./astro-lini.css": "./astro-lini.css",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist",
+		"astro-lini.css",
+		"README.md",
+		"LICENSE"
+	],
+	"scripts": {
+		"build": "tsc",
+		"prepack": "npm run build"
+	},
+	"dependencies": {
+		"lini-wasm": "^1.0.2"
+	},
+	"peerDependencies": {
+		"astro": "^7.0.0",
+		"satteri": ">=0.10.0"
+	},
+	"peerDependenciesMeta": {
+		"astro": {
+			"optional": true
+		},
+		"satteri": {
+			"optional": "true"
+		}
+	},
+	"devDependencies": {
+		"@types/node": "^26.4.1",
+		"satteri": "^0.10.5",
+		"typescript": "^5.9.3"
+	},
+	"engines": {
+		"node": ">=18"
+	}
+}
