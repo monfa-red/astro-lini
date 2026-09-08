@@ -1,6 +1,6 @@
 {
 	"name": "astro-lini",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Astro integration that compiles ```lini fences in Markdown and MDX to inline SVG at build time.",
 	"license": "MIT",
 	"homepage": "https://lini.rs",
