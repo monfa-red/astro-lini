@@ -1,6 +1,6 @@
 {
 	"name": "astro-lini",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"description": "Astro integration that compiles ```lini fences in Markdown and MDX to inline SVG at build time.",
 	"license": "MIT",
 	"homepage": "https://lini.rs",
@@ -38,12 +38,12 @@
 		"LICENSE"
 	],
 	"scripts": {
-		"build": "tsc",
+		"build": "tsc && cp node_modules/remark-lini/remark-lini.css astro-lini.css",
 		"prepack": "npm run build",
 		"test": "npm pack && cd tests/site && npm install && npm install --no-save --strict-peer-deps ../../astro-lini-*.tgz && npm run build && node verify.mjs dist"
 	},
 	"dependencies": {
-		"lini-wasm": "^1.0.2"
+		"remark-lini": "^0.1.0"
 	},
 	"peerDependencies": {
 		"astro": "^7.0.0",

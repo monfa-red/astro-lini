@@ -12,3 +12,6 @@ dist
 # breaks a figure should turn CI red the week it lands, not the day someone
 # gets around to bumping a pin.
 package-lock.json
+
+# Copied from remark-lini at build time — one sheet, two packages.
+astro-lini.css

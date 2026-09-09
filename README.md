@@ -246,18 +246,23 @@ page.
 
 ## Beyond Astro
 
-The integration is a thin wrapper. The work is a remark plugin, and it composes into any
-unified pipeline — Next, Docusaurus, a bare `unified()` — with no Astro anywhere:
+This package is the Astro half. Everything a fence *becomes* — the compile, the figure, the
+listing, the error box — lives in **[remark-lini](https://github.com/monfa-red/remark-lini)**,
+which this depends on. Outside Astro, install that one:
+
+```
+npm install remark-lini
+```
 
 ```js
-import { remarkLini } from 'astro-lini';
+import { remarkLini } from 'remark-lini';
 
-unified()
-  .use(remarkParse)
-  .use(remarkLini)
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(rehypeRaw);
+unified().use(remarkParse).use(remarkLini).use(remarkRehype);
 ```
+
+It works in Docusaurus, Next and MDX, Gatsby, or a bare `unified()`. `remarkLini` and
+`liniCss` are still re-exported from here, so nothing that reached for them breaks, but new
+code outside Astro should name `remark-lini` directly.
 
 `satteriLini()` is the same work as a plugin for Astro's own Markdown processor; the
 integration picks whichever of the two your site's processor takes, and you should not need

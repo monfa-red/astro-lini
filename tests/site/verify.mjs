@@ -113,7 +113,7 @@ function checkFigures({ html, counted }) {
 	// The compiler ran on every block that draws and none of them failed. Paired
 	// with the error box on `broken`, which proves the box is still emitted at
 	// all — without that, this passes on a build that lost the ability to say so.
-	want(count(counted, '<pre class="lini-error">') === 0, 'an error box on the good page');
+	want(count(counted, '<div class="lini-error">') === 0, 'an error box on the good page');
 
 	// The SVG is *in* the HTML — not an <img>, not a placeholder, and carrying
 	// real geometry — and the wrapper has the natural width the stylesheet floors
@@ -138,7 +138,7 @@ function checkFigures({ html, counted }) {
 	// block awaiting one — Astro's Shiki pass claims every <pre><code> it finds
 	// and would re-tokenize this as plaintext, wiping the spans the palette is
 	// written against.
-	want(!/<div class="lini-source"><pre><code/.test(counted), 'a <code> crept into a listing');
+	want(!/<div class="lini-source"><pre/.test(counted), 'a <pre> crept into a listing');
 	want(counted.includes('class="lini-tok-'), 'the listings are not highlighted');
 
 	checkOrder(counted);
@@ -243,8 +243,9 @@ function checkPassthrough(counted) {
 /**
  * The blank lines came back.
  *
- * The listing leaves the plugin with its newlines folded into `&#10;`, because a
- * blank line ends an HTML block in CommonMark and idiomatic Lini is full of
+ * The listing used to leave the plugin with its newlines folded into `&#10;`,
+ * because a blank line ends an HTML block in CommonMark and idiomatic Lini is
+ * full of
  * them. Something then has to unfold them again before the page is written —
  * here Sätteri's own HTML parser does it on the way into hast — or the reader
  * loses the layout the author wrote. Both halves have to hold: the listing shows
@@ -252,7 +253,7 @@ function checkPassthrough(counted) {
  * second.
  */
 function checkBlankLines(counted) {
-	const listings = [...counted.matchAll(/<div class="lini-source"><pre>([\s\S]*?)<\/pre>/g)].map(
+	const listings = [...counted.matchAll(/<div class="lini-source"><div class="lini-code">([\s\S]*?)<\/div>/g)].map(
 		(m) => m[1].replace(/<[^>]*>/g, ''),
 	);
 	want(listings.length === 6, `expected 6 listings, found ${listings.length}`);
@@ -284,7 +285,7 @@ function checkProse(counted) {
 /** The signature of a shattered HTML block: closing tags after the last prose. */
 function untailed(counted, last) {
 	const tail = counted.slice(counted.lastIndexOf(last));
-	for (const tag of ['</pre>', '</svg>', '</label>', '</div>']) {
+	for (const tag of ['</svg>', '</label>', '</div>']) {
 		want(!tail.includes(tag), `orphaned ${tag} after the last prose: ${tail.slice(0, 200)}`);
 	}
 }
@@ -297,11 +298,11 @@ function untailed(counted, last) {
  * page is `.md` so Astro's own default route is built too, not only the MDX one.
  */
 function checkBroken({ counted }) {
-	want(count(counted, '<pre class="lini-error">') === 1, 'expected exactly 1 error box');
+	want(count(counted, '<div class="lini-error">') === 1, 'expected exactly 1 error box');
 	// The diagnostic names the Markdown file and the real line inside it, not the
 	// line within the fence.
 	want(
-		/<pre class="lini-error">src\/pages\/broken\.md:\d+:\d+: error: /.test(counted),
+		/<div class="lini-error">src\/pages\/broken\.md:\d+:\d+: error: /.test(counted),
 		'the error box does not carry the file and line it came from',
 	);
 	// The block above it still drew.

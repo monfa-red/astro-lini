@@ -9,9 +9,10 @@
  * look the same whichever processor a site runs.
  */
 
+import { remarkLini } from 'remark-lini';
+import type { LiniOptions } from 'remark-lini';
+
 import { satteriLini } from './satteri.js';
-import { remarkLini } from './remark.js';
-import type { LiniOptions } from './options.js';
 
 /**
  * The shape of `markdown.processor` this reads. Astro's own schema fills it in
