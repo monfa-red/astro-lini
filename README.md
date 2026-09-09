@@ -251,18 +251,18 @@ listing, the error box — lives in **[remark-lini](https://github.com/monfa-red
 which this depends on. Outside Astro, install that one:
 
 ```
-npm install remark-lini
+npm install remark-lini-lang
 ```
 
 ```js
-import { remarkLini } from 'remark-lini';
+import { remarkLini } from 'remark-lini-lang';
 
 unified().use(remarkParse).use(remarkLini).use(remarkRehype);
 ```
 
 It works in Docusaurus, Next and MDX, Gatsby, or a bare `unified()`. `remarkLini` and
 `liniCss` are still re-exported from here, so nothing that reached for them breaks, but new
-code outside Astro should name `remark-lini` directly.
+code outside Astro should name `remark-lini-lang` directly.
 
 `satteriLini()` is the same work as a plugin for Astro's own Markdown processor; the
 integration picks whichever of the two your site's processor takes, and you should not need

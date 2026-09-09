@@ -9,8 +9,8 @@
  * look the same whichever processor a site runs.
  */
 
-import { remarkLini } from 'remark-lini';
-import type { LiniOptions } from 'remark-lini';
+import { remarkLini } from 'remark-lini-lang';
+import type { LiniOptions } from 'remark-lini-lang';
 
 import { satteriLini } from './satteri.js';
 

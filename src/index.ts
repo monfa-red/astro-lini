@@ -21,7 +21,7 @@ export type { SatteriPlugin } from './satteri.js';
 
 /**
  * The portable plugin, re-exported so a site that reached for it here keeps
- * working. Outside Astro, depend on `remark-lini` directly.
+ * working. Outside Astro, depend on `remark-lini-lang` directly.
  */
-export { remarkLini, liniCss } from 'remark-lini';
-export type { LiniOptions } from 'remark-lini';
+export { remarkLini, liniCss } from 'remark-lini-lang';
+export type { LiniOptions } from 'remark-lini-lang';

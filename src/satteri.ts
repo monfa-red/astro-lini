@@ -18,8 +18,8 @@
 
 import { fileURLToPath } from 'node:url';
 
-import { bundledCss, fenceWords, locate, renderFence, report } from 'remark-lini/core';
-import type { CodeNode, LiniOptions } from 'remark-lini/core';
+import { bundledCss, fenceWords, locate, renderFence, report } from 'remark-lini-lang/core';
+import type { CodeNode, LiniOptions } from 'remark-lini-lang/core';
 
 /** The slice of hast this adapter handles: elements, and the text inside them. */
 interface HastNode {

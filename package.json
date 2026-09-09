@@ -38,12 +38,12 @@
 		"LICENSE"
 	],
 	"scripts": {
-		"build": "tsc && cp node_modules/remark-lini/remark-lini.css astro-lini.css",
+		"build": "tsc && cp node_modules/remark-lini-lang/remark-lini.css astro-lini.css",
 		"prepack": "npm run build",
 		"test": "npm pack && cd tests/site && npm install && npm install --no-save --strict-peer-deps ../../astro-lini-*.tgz && npm run build && node verify.mjs dist"
 	},
 	"dependencies": {
-		"remark-lini": "^0.1.0"
+		"remark-lini-lang": "^0.1.0"
 	},
 	"peerDependencies": {
 		"astro": "^7.0.0",
